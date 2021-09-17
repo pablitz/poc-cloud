@@ -4,7 +4,6 @@ import br.com.pga.restkafka.dto.PersonResponseDTO;
 import br.com.pga.restkafka.model.Person;
 import br.com.pga.restkafka.repository.PersonRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,26 +16,26 @@ public class PersonServices {
 
     PersonRepository personRepository;
 
-    public List<Person> listPersons(){
+    public List<Person> listPersons() {
 
-       return personRepository.findAll();
-
-    }
-
-
-    public Person returnOne(long id){
-
-        return  personRepository.getById(id);
+        return personRepository.findAll();
 
     }
 
-    public Person addOne(Person person){
+
+    public Person returnOne(long id) {
+
+        return personRepository.getById(id);
+
+    }
+
+    public Person addOne(Person person) {
 
         return personRepository.save(person);
 
     }
 
-    public Person update(Long id,PersonResponseDTO personResponseDTO){
+    public Person update(Long id, PersonResponseDTO personResponseDTO) {
 
         Person person = personRepository.getById(id);
 
@@ -52,7 +51,7 @@ public class PersonServices {
 
     }
 
-    public void remove(Long id){
+    public void remove(Long id) {
 
         Optional<Person> optional = personRepository.findById(id);
 
