@@ -2,6 +2,7 @@ package br.com.pga.restkafka.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Person {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +26,12 @@ public class Person {
     private int age;
     @Column(name="EMAIL")
     private String email;
+    @Column(name="CREATED_AT")
     private LocalDateTime created_at;
+    @Column(name="UPDATED_AT")
     private LocalDateTime updated_at;
 
 }
+
+
 

@@ -1,47 +1,51 @@
 package br.com.pga.restkafka.controller;
 
 
-import br.com.pga.restkafka.dto.PersonDTO;
 import br.com.pga.restkafka.dto.PersonResponseDTO;
-import br.com.pga.restkafka.services.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
+import br.com.pga.restkafka.model.Person;
+import br.com.pga.restkafka.services.PersonServices;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/Persons")
+@RequestMapping("/persons")
+@AllArgsConstructor
 public class PersonController {
 
-    @Autowired
-    PersonService personService;
+
+    PersonServices personService;
 
 
     @GetMapping
 
-    public Page<PersonDTO> list(@RequestParam(required = false) String namePerson,
-                                @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10) Pageable pageable) {
+    public List<Person> list() {
 
-        return personService.listPersons(namePerson, pageable);
+        return personService.listPersons();
+
+    }
+
+    @GetMapping("/{id}")
+
+    public Person returnOne(@PathVariable Long id) {
+
+        return personService.returnOne(id);
 
     }
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<PersonDTO> register(@RequestBody PersonResponseDTO form, UriComponentsBuilder uriBuilder) {
 
-        return personService.response(form, uriBuilder);
+
+    public Person register(@RequestBody Person person) {
+
+        return personService.addOne(person);
 
     }
 
     @PutMapping("/{id}")
-    @Transactional
-    public ResponseEntity<PersonDTO> update(@PathVariable Long id, @RequestBody PersonResponseDTO personResponseDTO) {
+
+    public Person update(@PathVariable Long id, @RequestBody PersonResponseDTO personResponseDTO) {
 
         return personService.update(id, personResponseDTO);
 
@@ -49,10 +53,10 @@ public class PersonController {
 
 
     @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity<?> remove(@PathVariable Long id) {
 
-        return personService.remove(id);
+    public void remove(@PathVariable Long id) {
+
+        personService.remove(id);
 
     }
 
