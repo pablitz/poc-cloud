@@ -1,6 +1,5 @@
 package br.com.pga.restkafka.services;
 
-import br.com.pga.restkafka.dto.PersonResponseDTO;
 import br.com.pga.restkafka.model.Person;
 import br.com.pga.restkafka.repository.PersonRepository;
 import lombok.AllArgsConstructor;
@@ -12,42 +11,42 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class PersonServices {
+public class PersonService {
 
-    PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
-    public List<Person> listPersons() {
+    public List<Person> findAll() {
 
         return personRepository.findAll();
 
     }
 
 
-    public Person returnOne(long id) {
+    public Person findById(long id) {
 
         return personRepository.getById(id);
 
     }
 
-    public Person addOne(Person person) {
+    public Person create(Person person) {
 
         return personRepository.save(person);
 
     }
 
-    public Person update(Long id, PersonResponseDTO personResponseDTO) {
+    public Person update(Person person) {
 
-        Person person = personRepository.getById(id);
+        Person updated_person = personRepository.getById(person.getId());
 
-        person.setFirstName(personResponseDTO.getFirstName());
-        person.setSurName(personResponseDTO.getSurName());
-        person.setAge(personResponseDTO.getAge());
-        person.setUpdated_at(LocalDateTime.now());
-        person.setEmail(personResponseDTO.getEmail());
+        updated_person.setFirstName(person.getFirstName());
+        updated_person.setSurName(person.getSurName());
+        updated_person.setAge(person.getAge());
+        updated_person.setUpdated_at(LocalDateTime.now());
+        updated_person.setEmail(person.getEmail());
 
-        personRepository.save(person);
+        personRepository.save(updated_person);
 
-        return person;
+        return updated_person;
 
     }
 

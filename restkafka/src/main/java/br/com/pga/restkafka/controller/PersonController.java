@@ -1,9 +1,7 @@
 package br.com.pga.restkafka.controller;
 
-
-import br.com.pga.restkafka.dto.PersonResponseDTO;
 import br.com.pga.restkafka.model.Person;
-import br.com.pga.restkafka.services.PersonServices;
+import br.com.pga.restkafka.services.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,45 +20,39 @@ import java.util.List;
 public class PersonController {
 
 
-    PersonServices personService;
+    private final PersonService personService;
 
 
     @GetMapping
-
     public List<Person> list() {
 
-        return personService.listPersons();
+        return personService.findAll();
 
     }
 
     @GetMapping("/{id}")
-
     public Person returnOne(@PathVariable Long id) {
 
-        return personService.returnOne(id);
+        return personService.findById(id);
 
     }
 
     @PostMapping
-
-
     public Person register(@RequestBody Person person) {
 
-        return personService.addOne(person);
+        return personService.create(person);
 
     }
 
     @PutMapping("/{id}")
+    public Person update(@RequestBody Person person) {
 
-    public Person update(@PathVariable Long id, @RequestBody PersonResponseDTO personResponseDTO) {
-
-        return personService.update(id, personResponseDTO);
+        return personService.update(person);
 
     }
 
 
     @DeleteMapping("/{id}")
-
     public void remove(@PathVariable Long id) {
 
         personService.remove(id);
