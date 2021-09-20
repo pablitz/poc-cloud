@@ -1,1 +1,3 @@
 --arquivo sql
+INSERT INTO Person(firstName, surName, age, email,created_at,updated_at) VALUES('jose','da silva','25' ,'josedasilva@gmail.com','2021-09-17T14:17:54.383373774','2021-09-17T14:17:54.383373774');
+INSERT INTO Person(firstName, surName, age, email,created_at,updated_at) VALUES('joao','da silva','27' ,'joaodasilva@gmail.com','2021-09-17T14:17:54.383373774','2021-09-17T14:17:54.383373774');
