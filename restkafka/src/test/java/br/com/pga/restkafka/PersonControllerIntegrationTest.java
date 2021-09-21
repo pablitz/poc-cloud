@@ -2,13 +2,14 @@ package br.com.pga.restkafka;
 
 import br.com.pga.restkafka.model.Person;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -82,6 +83,9 @@ public class PersonControllerIntegrationTest {
 
         //assertEquals(200, result.getStatusCodeValue());
 
+        ResponseEntity<Person> response = testRestTemplate
+                .exchange(uri, HttpMethod.POST, request, Person.class);
+        assertEquals(response.getStatusCodeValue(), 200);
 
     }
 
