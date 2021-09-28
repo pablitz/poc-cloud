@@ -37,7 +37,6 @@ public class PersonServiceIntegrationTest {
     PersonService personService;
 
     @BeforeEach
-    @AfterEach
     public void clean(){
         personRepository.deleteAll();
         personRepository.flush();
